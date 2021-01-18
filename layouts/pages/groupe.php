@@ -1,7 +1,7 @@
 <?php 
 
 // Extraction de l'id
-	$groupeId = 0;
+	$groupeId = 1;
 	if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
 		$groupeId = $_GET['id'];
 	}
@@ -13,20 +13,41 @@
 	<div class="contentTitre">
 		Nom du groupe [<?php echo $groupeId; ?>]
 	</div>
-	
-	<div class="contentContent">
-		<div class="sonde typeSonde5" data-sonde-id="3">
-			<div class="titre">Lampe du plafond</div>
-			<div class="content">
-				<div class="imageSeule">
-					<img src="img/lampe_eteinte.png">
+
+    <?php
+    // Préparation de la requête
+    $prep = $pdo->prepare( 'SELECT * FROM sonde WHERE groupe_id ="' . $groupeId . '"ORDER BY id ASC' );
+    // Exécution de la requête
+    $prep->execute();
+    // Récupération des résultats dans un tableau associatif
+    $arrAll = $prep->fetchAll();
+    //var_dump($arrAll);
+    for ($i=0;$i<count($arrAll);$i++) {
+        $arr = $arrAll[$i];
+        $name = $arr[2];
+        $type = $arr[3];
+        //var_dump($type);
+        //$icon = $arr[3];
+        //$currentPage = $pageAffiche . '&id=' . $groupeId;
+        $generatedPage = 'groupe&id=' . $i;
+        //$classType = $currentPage == $generatedPage ? 'selected' : '';
+        echo "<div class='contentContent'>
+		<div class='sonde typeSonde5' data-sonde-id=$type>
+			<div class='titre'>$name</div>
+			<div class='content'>
+				<div class='imageSeule'>
+					<img src='img/lampe_eteinte.png'>
 				</div>
-				<div class="blocBtn">
-					<input name="btnLampe" value="Allumer" type="button">
+				<div class='blocBtn'>
+					<input name='btnLampe' value='Allumer' type='button'>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>";
+    }
+
+    //echo $pageAffiche . '&id=' . $groupeId;
+    ?>
 
 </div>
 

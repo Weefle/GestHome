@@ -1,7 +1,7 @@
 <?php
 
 // Extraction de l'id
-$groupeId = 0;
+$groupeId = 1;
 if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
     $groupeId = $_GET['id'];
 }
@@ -29,7 +29,7 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
                 $name = $arr[1];
                 $icon = $arr[3];
                 $currentPage = $pageAffiche . '&id=' . $groupeId;
-                $generatedPage = 'groupe&id=' . $i;
+                $generatedPage = 'groupe&id=' . ($i + 1);
                 $classType = $currentPage == $generatedPage ? 'selected' : '';
            echo "<li class=$classType>
                 <a href='index.php?page=$generatedPage'>
