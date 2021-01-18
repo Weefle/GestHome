@@ -25,15 +25,16 @@
     for ($i=0;$i<count($arrAll);$i++) {
         $arr = $arrAll[$i];
         $name = $arr[2];
-        $type = $arr[3];
+        $id = $arr[0];
+        $value = $arr[5];
         //var_dump($type);
         //$icon = $arr[3];
         //$currentPage = $pageAffiche . '&id=' . $groupeId;
         $generatedPage = 'groupe&id=' . $i;
         //$classType = $currentPage == $generatedPage ? 'selected' : '';
         echo "<div class='contentContent'>
-		<div class='sonde typeSonde5' data-sonde-id=$type>
-			<div class='titre'>$name</div>
+		<div class='sonde typeSonde5' data-sonde-id=$id>
+			<div class='titre'>$name ($value)</div>
 			<div class='content'>
 				<div class='imageSeule'>
 					<img src='img/lampe_eteinte.png'>

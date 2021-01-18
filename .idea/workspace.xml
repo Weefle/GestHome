@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added icons">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/pages/groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/groupe.php" afterDir="false" />
-    </list>
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added per group probe" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +56,7 @@
       <workItem from="1610973382814" duration="60000" />
       <workItem from="1610973803977" duration="3407000" />
       <workItem from="1610977480897" duration="149000" />
-      <workItem from="1610977642203" duration="14162000" />
+      <workItem from="1610977642203" duration="14818000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -70,7 +65,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610987998893</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added per group probe">
+      <created>1610992061278</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1610992061278</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -78,7 +80,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added icons" />
+    <MESSAGE value="Added per group probe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added per group probe" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
