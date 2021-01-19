@@ -6,6 +6,13 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
     $groupeId = $_GET['id'];
 }
 
+// Préparation de la requête
+$prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
+// Exécution de la requête
+$prep->execute();
+// Récupération des résultats dans un tableau associatif
+$arrAll = $prep->fetchAll();
+
 ?>
 <div id="menu">
 	<ul>
@@ -17,12 +24,6 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
 		</li>
 
         <?php
-        // Préparation de la requête
-        $prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
-        // Exécution de la requête
-        $prep->execute();
-        // Récupération des résultats dans un tableau associatif
-        $arrAll = $prep->fetchAll();
         //var_dump($arrAll);
             for ($i=0;$i<count($arrAll);$i++) {
                 $arr = $arrAll[$i];

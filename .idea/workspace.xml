@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added value per probe">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layouts/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layouts/pages/groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/groupe.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,11 +38,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
-    <configuration name="Domotique" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="PHP">
+    <configuration name="Domotique" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="PHP" start_url="/GestHome">
       <method v="2" />
     </configuration>
     <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" server_name="PHP">
@@ -59,6 +63,8 @@
       <workItem from="1610973803977" duration="3407000" />
       <workItem from="1610977480897" duration="149000" />
       <workItem from="1610977642203" duration="15765000" />
+      <workItem from="1611061746826" duration="3177000" />
+      <workItem from="1611089538330" duration="440000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>

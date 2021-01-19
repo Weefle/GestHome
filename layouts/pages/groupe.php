@@ -6,6 +6,13 @@
 		$groupeId = $_GET['id'];
 	}
 
+// Préparation de la requête
+$prep = $pdo->prepare( 'SELECT * FROM sonde WHERE groupe_id ="' . $groupeId . '"ORDER BY id ASC' );
+// Exécution de la requête
+$prep->execute();
+// Récupération des résultats dans un tableau associatif
+$arrAll = $prep->fetchAll();
+
 ?>
 
 <div id="pageGroupe">
@@ -15,12 +22,6 @@
 	</div>
 
     <?php
-    // Préparation de la requête
-    $prep = $pdo->prepare( 'SELECT * FROM sonde WHERE groupe_id ="' . $groupeId . '"ORDER BY id ASC' );
-    // Exécution de la requête
-    $prep->execute();
-    // Récupération des résultats dans un tableau associatif
-    $arrAll = $prep->fetchAll();
     //var_dump($arrAll);
     for ($i=0;$i<count($arrAll);$i++) {
         $arr = $arrAll[$i];
