@@ -36,7 +36,7 @@ button { cursor:pointer; background-color:#a0d468; color:#ffffff; padding:6px 12
 .btn:hover,
 input[type="button"]:hover,
 input[type="submit"]:hover,
-button:hover { background-color:#70BAFD; }
+button:hover { background-color:#009933; }
 
 /* Loader */
 .loader { text-align:center; }

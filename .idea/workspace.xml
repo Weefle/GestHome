@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Corrected probes disposition">
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Modified probe's css">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
     </list>
@@ -63,7 +63,7 @@
       <workItem from="1610977642203" duration="15765000" />
       <workItem from="1611061746826" duration="3177000" />
       <workItem from="1611089538330" duration="602000" />
-      <workItem from="1611090843563" duration="638000" />
+      <workItem from="1611090843563" duration="1360000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -93,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611090124890</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Modified probe's css">
+      <created>1611091586693</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1611091586693</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +123,8 @@
     <MESSAGE value="Added per group probe" />
     <MESSAGE value="Added value per probe" />
     <MESSAGE value="Corrected probes disposition" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected probes disposition" />
+    <MESSAGE value="Modified probe's css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified probe's css" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
