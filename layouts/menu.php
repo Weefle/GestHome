@@ -47,6 +47,12 @@ $arrAll = $prep->fetchAll();
 				<span class="fa fa-envelope"></span>Message
 			</a>
 		</li>
+
+        <li class="<?php echo ( $pageAffiche == 'admin' ? 'selected' : '' ); ?>">
+            <a href="index.php?page=admin">
+                <span class="fa fa-cogs"></span>Administration
+            </a>
+        </li>
 		
 	</ul>
 	<br class="clear" />

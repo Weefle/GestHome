@@ -36,6 +36,9 @@
 
 <script>
 	$(document).ready( function(){
-		
+        $('#messageTable').DataTable( {
+            paging: false,
+            scrollY: 400
+        } );
 	});
 </script>

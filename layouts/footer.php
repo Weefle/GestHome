@@ -1,6 +1,6 @@
 			
 		<div id="footer">
-			GestHome - <?php echo date('Y'); ?>
+			GestHome - le <?php echo date('d M Y'); ?>
 		</div>
 
 	</body>
