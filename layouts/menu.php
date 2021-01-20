@@ -38,7 +38,6 @@ $arrAll = $prep->fetchAll();
                 </a>
            </li>";
             }
-
             //echo $pageAffiche . '&id=' . $groupeId;
         ?>
 
