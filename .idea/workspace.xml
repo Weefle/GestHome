@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Modified css button">
-      <change afterPath="$PROJECT_DIR$/layouts/pages/admin.php" afterDir="false" />
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added admin page and datatable for message list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layouts/pages/message.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/message.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +67,8 @@
       <workItem from="1611061746826" duration="3177000" />
       <workItem from="1611089538330" duration="602000" />
       <workItem from="1611090843563" duration="1487000" />
-      <workItem from="1611162990750" duration="6292000" />
+      <workItem from="1611162990750" duration="6425000" />
+      <workItem from="1611225422340" duration="6896000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -113,7 +112,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611092328980</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added admin page">
+      <created>1611180622797</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1611180622797</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added admin page and datatable for message list">
+      <created>1611180653779</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1611180653779</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -138,7 +151,9 @@
     <MESSAGE value="Corrected probes disposition" />
     <MESSAGE value="Modified probe's css" />
     <MESSAGE value="Modified css button" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified css button" />
+    <MESSAGE value="Added admin page" />
+    <MESSAGE value="Added admin page and datatable for message list" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added admin page and datatable for message list" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
