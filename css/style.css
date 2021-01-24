@@ -85,9 +85,9 @@ button:hover { background-color:#009933; }
 #pageGroupe .sonde .content .image { float:left; width:49.9%; text-align:center; }
 #pageGroupe .sonde .content .image img { width:90%; }
 
-#pageGroupe .sonde.typeSonde5 { box-shadow: inset .2em -.2em #515253 }
-#pageGroupe .sonde.typeSonde5 .imageSeule { text-align:center; }
-#pageGroupe .sonde.typeSonde5 .imageSeule img { height:140px; margin-top:10px; cursor:pointer; }
-#pageGroupe .sonde.typeSonde5 .blocBtn { text-align:right; margin-top:-23px; margin-right:10px; }
+#pageGroupe .sonde.typeSonde { box-shadow: inset .2em -.2em #515253 }
+#pageGroupe .sonde.typeSonde .imageSeule { text-align:center; }
+#pageGroupe .sonde.typeSonde .imageSeule img { height:140px; margin-top:10px; cursor:pointer; }
+#pageGroupe .sonde.typeSonde .blocBtn { text-align:right; margin-top:-23px; margin-right:10px; }
 
 /* Fin du fichier CSS */
