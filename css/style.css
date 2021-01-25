@@ -89,5 +89,23 @@ button:hover { background-color:#009933; }
 #pageGroupe .sonde.typeSonde .imageSeule { text-align:center; }
 #pageGroupe .sonde.typeSonde .imageSeule img { height:140px; margin-top:10px; cursor:pointer; }
 #pageGroupe .sonde.typeSonde .blocBtn { text-align:right; margin-top:-23px; margin-right:10px; }
+#pageGroupe .sonde.typeSonde .content_left
+{
+    font-size: 30px;
+    text-align: center;
+    float: left;
+    width: 49.9%;
+    cursor: pointer;
+}
+#pageGroupe .sonde.typeSonde .content_left img
+{width: 100%;}
+#pageGroupe .sonde.typeSonde .content_right
+{
+    font-size: 30px;
+    text-align: center;
+    float: right;
+    width: 49.9%;
+    cursor: pointer;
+}
 
 /* Fin du fichier CSS */

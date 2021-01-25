@@ -5,7 +5,6 @@ $prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
 $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
-
 ?>
 <div id="pageMessage">
 
@@ -82,10 +81,30 @@ $arrAll = $prep->fetchAll();
                 return { login: login, password: password }
             }
         }).then((result) => {
-            Swal.fire(`
+            /*Swal.fire(`
     Login: ${result.value.login}
     Password: ${result.value.password}
-  `.trim())
+  `.trim());*/
+            if(result.value) {
+                $.ajax({
+                    url: 'ajax/login_user.php',
+                    type: 'POST',
+                    data: {
+                        login: result.value.login,
+                        password: result.value.password
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Gestion de la réponse
+                        resultId = parseInt(response.result);
+                        if (resultId > 0) {
+                            alert('Login');
+                        } else {
+                            alert('Login incorrect');
+                        }
+                    }
+                });
+            }
         });
 
     });
