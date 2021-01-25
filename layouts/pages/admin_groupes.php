@@ -44,7 +44,7 @@ require('layouts/pages/admin.php');
                         <td > $groupe_name</td >
 						<td class='textCenter fontSize20 fa $groupe_icon' ></td >
 						<td > $sonde_count</td >
-						<td ><input name='Modif_Group' value='Modifier' type='button'></td>
+						<td class='groupe' data-groupe-id=$groupe_id ><input name='Modif_Group' value='Modifier' type='button'></td>
 					</tr >";
                 }
 
@@ -60,14 +60,71 @@ require('layouts/pages/admin.php');
 <script>
     $(document).ready( function(){
 
+        $('#pageMessage').on( 'click', 'input[name=Modif_Group]', function(e){
+            e.preventDefault();
+            var parent = $(this).parents('.groupe');
+
+            // Récupération de l'id de la sonde
+            var groupeId = parent.data('groupe-id');
+
+            Swal.fire({
+                title: 'Modifier nom groupe',
+                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">`,
+                confirmButtonText: 'Modifier',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const value = Swal.getPopup().querySelector('#value').value
+                    if (!value) {
+                        Swal.showValidationMessage(`Please enter a value!`)
+                    }
+                    return { value: value}
+                }
+            }).then((result) => {
+                if(result.value) {
+                    const value = result.value.value;
+                    $.ajax({
+                        url: 'ajax/modif_group.php',
+                        type: 'POST',
+                        data: {
+                            value: value,
+                            id: groupeId
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // Gestion de la réponse
+                            resultId = parseInt(response.result);
+                            if (resultId > 0) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Parfait',
+                                    text: 'Nom du groupe modifié!',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "index.php?page=admin_groupes";
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Echec',
+                                    text: 'Erreur de requête!',
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
         $('#messageTable').DataTable( {
             paging: false,
             scrollY: 400
         } );
 
-    $('#pageMessage').on('click', 'input[name=Add_Group]', function(){
-
-        var liste;
+    $('#pageMessage').on('click', 'input[name=Add_Group]', function(e){
+        e.preventDefault();
+        /*var liste;
         $.ajax({
             url: 'ajax/get_groups.php',
             type: 'POST',
@@ -86,21 +143,16 @@ require('layouts/pages/admin.php');
                             liste
                         },
                         inputPlaceholder: 'Groupe',
-                        showCancelButton: true/*,
-                        inputValidator: (value) => {
-                            return new Promise((resolve) => {
-                                    Swal.fire(`You selected: ${value}`)
-                            })
-                        }*/
+                        showCancelButton: true
                     });
                     //alert('Login');
                 } else {
                     alert("Il n'y a pas d'éléments!");
                 }
             }
-        });
+        });*/
 
-        /*Swal.fire({
+        Swal.fire({
             title: 'Login Form',
             html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
   <input type="password" id="password" class="swal2-input" placeholder="Password">`,
@@ -143,7 +195,7 @@ require('layouts/pages/admin.php');
                     }
                 });
             }
-        });*/
+        });
 
     });
     });
