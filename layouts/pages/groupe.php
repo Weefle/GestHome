@@ -66,11 +66,11 @@ $grp_name = $arrAll2[0];
             break;
             case TYPE_SONDE_FENETRE:
                 if($value==0) {
-                    $image = 'img/volet_ouvert.png';
+                    $image = 'img/volet_ouvert_big.png';
                 }else if ($value==0.5){
-                    $image = 'img/volet_moitie_ouvert.png';
+                    $image = 'img/volet_moitie_ouvert_big.png';
                 }else if($value==1){
-                    $image = 'img/volet_ferme.png';
+                    $image = 'img/volet_ferme_big.png';
                 }
                 $affichage = "<div class='blocBtn'>
                     <input name='btnFenetre_Plus' value='Augmenter_Fenetre' type='image' src='img/volet_ouvert.png'>
@@ -182,11 +182,11 @@ $grp_name = $arrAll2[0];
                                 if (resultId > 0) {
                                     if (response.newValeur != null) {
                                         if(response.newValeur==0){
-                                            parent.find('.imageSeule img').attr('src', 'img/volet_ouvert.png');
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_ouvert_big.png');
                                         }else if(response.newValeur==0.5){
-                                            parent.find('.imageSeule img').attr('src', 'img/volet_moitie_ouvert.png');
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_moitie_ouvert_big.png');
                                         }else if(response.newValeur==1){
-                                            parent.find('.imageSeule img').attr('src', 'img/volet_ferme.png');
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_ferme_big.png');
                                         }
                                     }
                                 } else {

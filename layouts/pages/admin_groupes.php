@@ -5,6 +5,7 @@ $prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
 $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
+require('layouts/pages/admin.php');
 ?>
 <div id="pageMessage">
 
@@ -66,12 +67,51 @@ $arrAll = $prep->fetchAll();
 
     $('#pageMessage').on('click', 'input[name=Add_Group]', function(){
 
-        Swal.fire({
+        var liste;
+        $.ajax({
+            url: 'ajax/get_groups.php',
+            type: 'POST',
+            data: {},
+            dataType: 'json',
+            success: function (response) {
+                // Gestion de la réponse
+                resultId = parseInt(response.result);
+                if (resultId > 0) {
+                    liste = response.list;
+                    //alert(list);
+                    Swal.fire({
+                        title: 'Select a group',
+                        input: 'select',
+                        inputOptions: {
+                            liste
+                        },
+                        inputPlaceholder: 'Groupe',
+                        showCancelButton: true/*,
+                        inputValidator: (value) => {
+                            return new Promise((resolve) => {
+                                    Swal.fire(`You selected: ${value}`)
+                            })
+                        }*/
+                    });
+                    //alert('Login');
+                } else {
+                    alert("Il n'y a pas d'éléments!");
+                }
+            }
+        });
+
+        /*Swal.fire({
             title: 'Login Form',
             html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
   <input type="password" id="password" class="swal2-input" placeholder="Password">`,
             confirmButtonText: 'Sign in',
             focusConfirm: false,
+            backdrop: `
+    rgba(0,0,123,0.4)
+    url("img/nyan-cat.gif")
+    left top
+    no-repeat
+  `,
             preConfirm: () => {
                 const login = Swal.getPopup().querySelector('#login').value
                 const password = Swal.getPopup().querySelector('#password').value
@@ -81,17 +121,15 @@ $arrAll = $prep->fetchAll();
                 return { login: login, password: password }
             }
         }).then((result) => {
-            /*Swal.fire(`
-    Login: ${result.value.login}
-    Password: ${result.value.password}
-  `.trim());*/
             if(result.value) {
+                const login = result.value.login;
+                const password = result.value.password;
                 $.ajax({
                     url: 'ajax/login_user.php',
                     type: 'POST',
                     data: {
-                        login: result.value.login,
-                        password: result.value.password
+                        login: login,
+                        password: password
                     },
                     dataType: 'json',
                     success: function (response) {
@@ -105,7 +143,7 @@ $arrAll = $prep->fetchAll();
                     }
                 });
             }
-        });
+        });*/
 
     });
     });
