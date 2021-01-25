@@ -43,26 +43,64 @@ $grp_name = $arrAll2[0];
         //$currentPage = $pageAffiche . '&id=' . $groupeId;
         $generatedPage = 'groupe&id=' . $i;
         //$classType = $currentPage == $generatedPage ? 'selected' : '';
+
         switch ($type_sonde_id){
 
             case TYPE_SONDE_TEMPERATURE: $image = 'img/thermometre.png';
-            $affichage = "<div class='blocBtn'>
-					<input name='btnLampe' value='Allumer' type='button'>
-				</div>";
+                $affichage = "<div class='blocBtn'>
+                    <div class='textCenter fontSize20'>$value °C</div>
+                    </div>";
             break;
-            case TYPE_SONDE_PORTE: $image = 'img/porte_ouverte.png';
+            case TYPE_SONDE_PORTE:
+                if($value == 0){
+                    $image = 'img/porte_ouverte.png';
                 $affichage = "<div class='blocBtn'>
                     <input name='btnPorte' value='Fermer' type='button'>
-					<!--<input name='btnPorte' value='Changer' type='image' src='img/unlock.png'>-->
+				</div>";
+                }else{
+                    $image = 'img/porte_ferme.png';
+                    $affichage = "<div class='blocBtn'>
+                    <input name='btnPorte' value='Ouvrir' type='button'>
+				</div>";
+                }
+            break;
+            case TYPE_SONDE_FENETRE:
+                if($value==0) {
+                    $image = 'img/volet_ouvert.png';
+                }else if ($value==0.5){
+                    $image = 'img/volet_moitie_ouvert.png';
+                }else if($value==1){
+                    $image = 'img/volet_ferme.png';
+                }
+                $affichage = "<div class='blocBtn'>
+                    <input name='btnFenetre_Plus' value='Augmenter_Fenetre' type='image' src='img/volet_ouvert.png'>
+                    <input name='btnFenetre_Moins' value='Diminuer_Fenetre' type='image' src='img/volet_ferme.png'>
 				</div>";
             break;
-            case TYPE_SONDE_FENETRE: $image = 'img/volet_ouvert.png';
-            break;
-            case TYPE_SONDE_ECLAIRAGE: $image = 'img/lampe_eteinte.png';
+            case TYPE_SONDE_ECLAIRAGE:
+                if($value == 0) {
+                    $image = 'img/lampe_eteinte.png';
+                    $affichage = "<div class='blocBtn'>
+					<input name='btnLampe' value='Allumer' type='button'>
+				</div>";
+                }else{
+                    $image = 'img/lampe_allumee.png';
+                    $affichage = "<div class='blocBtn'>
+					<input name='btnLampe' value='Eteindre' type='button'>
+				</div>";
+                }
             break;
             case TYPE_SONDE_LUMINOSITE: $image = 'img/luminosite.png';
+            $affichage = "<div class='blocBtn'>
+                    <div class='textCenter fontSize20'>$value %</div>
+				</div>";
             break;
             case TYPE_SONDE_CHAUFFAGE: $image = 'img/thermometre.png';
+                $affichage = "<div class='blocBtn'>
+                    <div class='textCenter fontSize20'>$value °C</div>
+                    <input name='btnChauffage_Plus' value='Augmenter_Chauffage' type='image' src='img/add.png'>
+                    <input name='btnChauffage_Moins' value='Diminuer_Chauffage' type='image' src='img/remove.png'>
+				</div>";
                 break;
 
         }
@@ -101,14 +139,13 @@ $grp_name = $arrAll2[0];
 
             if(typeSondeId!=null) {
                 switch(typeSondeId){
-                    case 1:
-                        break;
                     case 3:
                         $.ajax({
                         url: 'ajax/update_porte.php',
                         type: 'POST',
                         data: {
                             sonde_id: sondeId,
+                            value: value
                             //type_sonde_id: typeSondeId
                         },
                         dataType: 'json',
@@ -130,6 +167,33 @@ $grp_name = $arrAll2[0];
                     });
                         break;
                     case 4:
+                        $.ajax({
+                            url: 'ajax/update_fenetre.php',
+                            type: 'POST',
+                            data: {
+                                sonde_id: sondeId,
+                                value: value
+                                //type_sonde_id: typeSondeId
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                // Gestion de la réponse
+                                resultId = parseInt(response.result);
+                                if (resultId > 0) {
+                                    if (response.newValeur != null) {
+                                        if(response.newValeur==0){
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_ouvert.png');
+                                        }else if(response.newValeur==0.5){
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_moitie_ouvert.png');
+                                        }else if(response.newValeur==1){
+                                            parent.find('.imageSeule img').attr('src', 'img/volet_ferme.png');
+                                        }
+                                    }
+                                } else {
+                                    alert('Erreur lors de la mise à jour du chauffage');
+                                }
+                            }
+                        });
                         break;
                     case 5: // Envoi des données au serveur
                         $.ajax({
@@ -157,9 +221,30 @@ $grp_name = $arrAll2[0];
                             }
                         });
                         break;
-                    case 6:
-                        break;
                     case 7:
+                        $.ajax({
+                            url: 'ajax/update_chauffage.php',
+                            type: 'POST',
+                            data: {
+                                sonde_id: sondeId,
+                                value: value
+                                //type_sonde_id: typeSondeId
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                // Gestion de la réponse
+                                resultId = parseInt(response.result);
+                                if (resultId > 0) {
+                                    if (response.newValeur != null) {
+                                        //alert(response.newValeur);
+                                        parent.find('.textCenter').text(response.newValeur + " °C");
+                                        //parent.find('input[name="btnLampe"]').val('Eteindre');
+                                    }
+                                } else {
+                                    alert('Erreur lors de la mise à jour du chauffage');
+                                }
+                            }
+                        });
                         break;
                 }
 
