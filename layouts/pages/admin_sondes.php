@@ -66,7 +66,55 @@ require('layouts/pages/admin.php');
 
             // Récupération de l'id de la sonde
             var groupeId = parent.data('groupe-id');
-            alert(groupeId);
+
+            Swal.fire({
+                title: 'Modifier nom groupe',
+                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">`,
+                confirmButtonText: 'Modifier',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const value = Swal.getPopup().querySelector('#value').value
+                    if (!value) {
+                        Swal.showValidationMessage(`Please enter a value!`)
+                    }
+                    return { value: value}
+                }
+            }).then((result) => {
+                if(result.value) {
+                    const value = result.value.value;
+                    $.ajax({
+                        url: 'ajax/modif_group.php',
+                        type: 'POST',
+                        data: {
+                            value: value,
+                            id: groupeId
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // Gestion de la réponse
+                            resultId = parseInt(response.result);
+                            if (resultId > 0) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Parfait',
+                                    text: 'Nom du groupe modifié!',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "index.php?page=admin_groupes";
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Echec',
+                                    text: 'Erreur de requête!',
+                                });
+                            }
+                        }
+                    });
+                }
+            });
         });
 
         $('#messageTable').DataTable( {
@@ -76,7 +124,7 @@ require('layouts/pages/admin.php');
 
         $('#pageMessage').on('click', 'input[name=Add_Group]', function(e){
             e.preventDefault();
-            var liste;
+            /*var liste;
             $.ajax({
                 url: 'ajax/get_groups.php',
                 type: 'POST',
@@ -102,20 +150,20 @@ require('layouts/pages/admin.php');
                         alert("Il n'y a pas d'éléments!");
                     }
                 }
-            });
+            });*/
 
-            /*Swal.fire({
+            Swal.fire({
                 title: 'Login Form',
                 html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-      <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+  <input type="password" id="password" class="swal2-input" placeholder="Password">`,
                 confirmButtonText: 'Sign in',
                 focusConfirm: false,
                 backdrop: `
-        rgba(0,0,123,0.4)
-        url("img/nyan-cat.gif")
-        left top
-        no-repeat
-      `,
+    rgba(0,0,123,0.4)
+    url("img/nyan-cat.gif")
+    left top
+    no-repeat
+  `,
                 preConfirm: () => {
                     const login = Swal.getPopup().querySelector('#login').value
                     const password = Swal.getPopup().querySelector('#password').value
@@ -147,7 +195,7 @@ require('layouts/pages/admin.php');
                         }
                     });
                 }
-            });*/
+            });
 
         });
     });

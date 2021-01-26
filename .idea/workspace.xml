@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added navbar for admin.php">
-      <change afterPath="$PROJECT_DIR$/ajax/modif_group.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/github.png" afterDir="false" />
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added modification for group">
+      <change afterPath="$PROJECT_DIR$/ajax/suppr_group.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layouts/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/menu.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layouts/pages/admin_groupes.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/admin_groupes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layouts/pages/admin_sondes.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/admin_sondes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/layouts/pages/admin_utilisateurs.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/admin_utilisateurs.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layouts/pages/groupe.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/groupe.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +91,8 @@
       <workItem from="1611090843563" duration="1487000" />
       <workItem from="1611162990750" duration="6425000" />
       <workItem from="1611225422340" duration="6896000" />
-      <workItem from="1611400902348" duration="53973000" />
+      <workItem from="1611400902348" duration="54160000" />
+      <workItem from="1611692369300" duration="3435000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -185,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611591272893</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added modification for group">
+      <created>1611599336866</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1611599336867</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +224,8 @@
     <MESSAGE value="Making admin_groupes.php" />
     <MESSAGE value="Added login_user.php" />
     <MESSAGE value="Added navbar for admin.php" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added navbar for admin.php" />
+    <MESSAGE value="Added modification for group" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added modification for group" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

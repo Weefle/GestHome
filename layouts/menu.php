@@ -1,18 +1,15 @@
 <?php
 
-// Extraction de l'id
-$groupeId = 1;
-if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
-    $groupeId = $_GET['id'];
-}
-
 // Préparation de la requête
 $prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
 // Exécution de la requête
 $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
-
+// Extraction de l'id
+if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
+    $groupeId = $_GET['id'];
+}
 ?>
 <div id="menu">
 	<ul>
@@ -27,10 +24,11 @@ $arrAll = $prep->fetchAll();
         //var_dump($arrAll);
             for ($i=0;$i<count($arrAll);$i++) {
                 $arr = $arrAll[$i];
+                $id = $arr[0];
                 $name = $arr[1];
                 $icon = $arr[3];
                 $currentPage = $pageAffiche . '&id=' . $groupeId;
-                $generatedPage = 'groupe&id=' . ($i + 1);
+                $generatedPage = 'groupe&id=' . $id;
                 $classType = $currentPage == $generatedPage ? 'selected' : '';
            echo "<li class=$classType>
                 <a href='index.php?page=$generatedPage'>

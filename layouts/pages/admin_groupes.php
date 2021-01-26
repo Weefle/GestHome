@@ -24,6 +24,7 @@ require('layouts/pages/admin.php');
                     <th>Icone</th>
                     <th>Nombre de sondes</th>
                     <th>Modifier groupe</th>
+                    <th>Supprimer groupe</th>
                 </tr>
                 </thead>
 
@@ -44,7 +45,8 @@ require('layouts/pages/admin.php');
                         <td > $groupe_name</td >
 						<td class='textCenter fontSize20 fa $groupe_icon' ></td >
 						<td > $sonde_count</td >
-						<td class='groupe' data-groupe-id=$groupe_id ><input name='Modif_Group' value='Modifier' type='button'></td>
+						<td class='modif_groupe' data-groupe-id=$groupe_id ><input name='Modif_Group' value='Modifier' type='button'></td>
+						<td class='suppr_groupe' data-groupe-id=$groupe_id ><input name='Suppr_Group' value='Supprimer' type='button'></td>
 					</tr >";
                 }
 
@@ -60,17 +62,68 @@ require('layouts/pages/admin.php');
 <script>
     $(document).ready( function(){
 
-        $('#pageMessage').on( 'click', 'input[name=Modif_Group]', function(e){
+        $('#pageMessage').on( 'click', 'input[name=Suppr_Group]', function(e) {
             e.preventDefault();
-            var parent = $(this).parents('.groupe');
+            var parent = $(this).parents('.suppr_groupe');
 
             // Récupération de l'id de la sonde
             var groupeId = parent.data('groupe-id');
 
             Swal.fire({
-                title: 'Modifier nom groupe',
+                title: 'Etes vous sûr?',
+                text: "Vous ne pourrez pas revenir en arrière!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'ajax/suppr_group.php',
+                        type: 'POST',
+                        data: {
+                            id: groupeId
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // Gestion de la réponse
+                            resultId = parseInt(response.result);
+                            if (resultId > 0) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Parfait',
+                                    text: 'Groupe supprimé!',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "index.php?page=admin_groupes";
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Echec',
+                                    text: 'Erreur de requête!',
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#pageMessage').on( 'click', 'input[name=Modif_Group]', function(e){
+            e.preventDefault();
+            var parent = $(this).parents('.modif_groupe');
+
+            // Récupération de l'id de la sonde
+            var groupeId = parent.data('groupe-id');
+
+            Swal.fire({
+                title: 'Modifier groupe',
                 html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">`,
-                confirmButtonText: 'Modifier',
+                confirmButtonText: 'Valider',
                 focusConfirm: false,
                 preConfirm: () => {
                     const value = Swal.getPopup().querySelector('#value').value
@@ -152,7 +205,7 @@ require('layouts/pages/admin.php');
             }
         });*/
 
-        Swal.fire({
+        /*Swal.fire({
             title: 'Login Form',
             html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
   <input type="password" id="password" class="swal2-input" placeholder="Password">`,
@@ -195,7 +248,7 @@ require('layouts/pages/admin.php');
                     }
                 });
             }
-        });
+        });*/
 
     });
     });

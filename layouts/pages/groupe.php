@@ -1,7 +1,6 @@
 <?php 
 
 // Extraction de l'id
-	$groupeId = 1;
 	if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
 		$groupeId = $_GET['id'];
 	}
