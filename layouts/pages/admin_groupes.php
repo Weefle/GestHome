@@ -5,6 +5,7 @@ $prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
 $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
+
 require('layouts/pages/admin.php');
 ?>
 <div id="pageMessage">
@@ -41,12 +42,12 @@ require('layouts/pages/admin.php');
                     //var_dump($arrRes);
                     $arr2 = $arrRes[0];
                     $sonde_count = $arr2[0];
-                    echo "<tr >
-                        <td > $groupe_name</td >
+                    echo "<tr class='groupe' data-groupe-id=$groupe_id data-groupe-name='$groupe_name' >
+                        <td >$groupe_name</td >
 						<td class='textCenter fontSize20 fa $groupe_icon' ></td >
-						<td > $sonde_count</td >
-						<td class='modif_groupe' data-groupe-id=$groupe_id ><input name='Modif_Group' value='Modifier' type='button'></td>
-						<td class='suppr_groupe' data-groupe-id=$groupe_id ><input name='Suppr_Group' value='Supprimer' type='button'></td>
+						<td >$sonde_count</td >
+						<td ><input name='Modif_Group' value='Modifier' type='button'></td>
+						<td ><input name='Suppr_Group' value='Supprimer' type='button'></td>
 					</tr >";
                 }
 
@@ -64,13 +65,14 @@ require('layouts/pages/admin.php');
 
         $('#pageMessage').on( 'click', 'input[name=Suppr_Group]', function(e) {
             e.preventDefault();
-            var parent = $(this).parents('.suppr_groupe');
+            var parent = $(this).parents('.groupe');
 
             // Récupération de l'id de la sonde
             var groupeId = parent.data('groupe-id');
+            var groupeName = parent.data('groupe-name');
 
             Swal.fire({
-                title: 'Etes vous sûr?',
+                title: 'Etes vous sûr de supprimer ' + groupeName + '?',
                 text: "Vous ne pourrez pas revenir en arrière!",
                 icon: 'warning',
                 showCancelButton: true,
@@ -115,14 +117,16 @@ require('layouts/pages/admin.php');
 
         $('#pageMessage').on( 'click', 'input[name=Modif_Group]', function(e){
             e.preventDefault();
-            var parent = $(this).parents('.modif_groupe');
+            var parent = $(this).parents('.groupe');
 
             // Récupération de l'id de la sonde
             var groupeId = parent.data('groupe-id');
+            var groupeName = parent.data('groupe-name');
+            //alert(groupeName);
 
             Swal.fire({
                 title: 'Modifier groupe',
-                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">`,
+                html: `<input type="text" id="value" class="swal2-input" placeholder="${groupeName}">`,
                 confirmButtonText: 'Valider',
                 focusConfirm: false,
                 preConfirm: () => {
@@ -177,6 +181,57 @@ require('layouts/pages/admin.php');
 
     $('#pageMessage').on('click', 'input[name=Add_Group]', function(e){
         e.preventDefault();
+        Swal.fire({
+            title: 'Ajouter groupe',
+            html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">
+<input type="text" id="icon" class="swal2-input" placeholder="Nom icone (ex: fa-calendar)">`,
+            confirmButtonText: 'Valider',
+            focusConfirm: false,
+            preConfirm: () => {
+                const value = Swal.getPopup().querySelector('#value').value
+                const icon = Swal.getPopup().querySelector('#icon').value
+                if (!value && !icon) {
+                    Swal.showValidationMessage(`Please enter a value!`)
+                }
+                return { value: value, icon: icon}
+            }
+        }).then((result) => {
+            if(result.value) {
+                const value = result.value.value;
+                const icon = result.value.icon;
+                $.ajax({
+                    url: 'ajax/add_group.php',
+                    type: 'POST',
+                    data: {
+                        value: value,
+                        icon: icon
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        // Gestion de la réponse
+                        resultId = parseInt(response.result);
+                        if (resultId > 0) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Parfait',
+                                text: 'Groupe ajouté!',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location = "index.php?page=admin_groupes";
+                                }
+                            });
+
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Echec',
+                                text: 'Erreur de requête!',
+                            });
+                        }
+                    }
+                });
+            }
+        });
         /*var liste;
         $.ajax({
             url: 'ajax/get_groups.php',

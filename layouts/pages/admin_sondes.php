@@ -1,10 +1,11 @@
 <?php
 // Préparation de la requête
-$prep = $pdo->prepare( 'SELECT * FROM groupe ORDER BY ordre ASC' );
+$prep = $pdo->prepare( 'SELECT * FROM sonde ORDER BY id ASC' );
 // Exécution de la requête
 $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
+
 require('layouts/pages/admin.php');
 ?>
 <div id="pageMessage">
@@ -14,16 +15,19 @@ require('layouts/pages/admin.php');
     </div>
 
     <div class="contentContent">
-        <input name="Add_Group" value="Ajouter un groupe" type="button">
+        <input name="Add_Sonde" value="Ajouter une sonde" type="button">
         <div class="dataTableContainer">
             <table id="messageTable" class="stripe row-border dataTable">
 
                 <thead>
                 <tr>
+                    <th>Sonde</th>
+                    <th>Code</th>
+                    <th>Type de sonde</th>
                     <th>Groupe</th>
-                    <th>Icone</th>
-                    <th>Nombre de sondes</th>
-                    <th>Modifier groupe</th>
+                    <th>Valeur</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
                 </tr>
                 </thead>
 
@@ -31,20 +35,30 @@ require('layouts/pages/admin.php');
                 <?php
                 for ($i=0;$i<count($arrAll);$i++) {
                     $arr = $arrAll[$i];
-                    $groupe_id = $arr['id'];
-                    $groupe_name = $arr['label'];
-                    $groupe_icon = $arr['icone'];
-                    $prep = $pdo->prepare( 'SELECT COUNT(*) FROM sonde WHERE groupe_id ="' . $groupe_id . '"' );
+                    $groupe_id = $arr['groupe_id'];
+                    $sonde_id = $arr['id'];
+                    $sonde_name = $arr['label'];
+                    $sonde_code = $arr['code'];
+                    $value = $arr['valeur'];
+                    $sonde_type_id = $arr['type_sonde_id'];
+                    $prep = $pdo->prepare( 'SELECT label FROM groupe WHERE id ="' . $groupe_id . '"' );
                     $prep->execute();
-                    $arrRes = $prep->fetchAll();
+                    $arrRes = $prep->fetch();
                     //var_dump($arrRes);
-                    $arr2 = $arrRes[0];
-                    $sonde_count = $arr2[0];
-                    echo "<tr >
-                        <td > $groupe_name</td >
-						<td class='textCenter fontSize20 fa $groupe_icon' ></td >
-						<td > $sonde_count</td >
-						<td class='groupe' data-groupe-id=$groupe_id ><input name='Modif_Group' value='Modifier' type='button'></td>
+                    $groupe = $arrRes[0];
+                    $prep = $pdo->prepare( 'SELECT label FROM type_sonde WHERE id ="' . $sonde_type_id . '"' );
+                    $prep->execute();
+                    $arrr = $prep->fetch();
+                    //var_dump($arrr);
+                    $type = $arrr[0];
+                    echo "<tr class='sonde' data-sonde-id=$sonde_id data-sonde-name='$sonde_name' >
+                        <td >$sonde_name</td >
+						<td >$sonde_code</td >
+						<td >$type</td >
+						<td >$groupe</td >
+						<td >$value</td >
+						<td  ><input name='Modif_Sonde' value='Modifier' type='button'></td>
+						<td  ><input name='Suppr_Sonde' value='Supprimer' type='button'></td>
 					</tr >";
                 }
 
@@ -60,17 +74,71 @@ require('layouts/pages/admin.php');
 <script>
     $(document).ready( function(){
 
-        $('#pageMessage').on( 'click', 'input[name=Modif_Group]', function(e){
+        $('#pageMessage').on( 'click', 'input[name=Suppr_Sonde]', function(e) {
             e.preventDefault();
-            var parent = $(this).parents('.groupe');
+            var parent = $(this).parents('.sonde');
 
             // Récupération de l'id de la sonde
-            var groupeId = parent.data('groupe-id');
+            var sondeId = parent.data('sonde-id');
+            var sondeName = parent.data('sonde-name');
 
             Swal.fire({
-                title: 'Modifier nom groupe',
-                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom groupe">`,
-                confirmButtonText: 'Modifier',
+                title: 'Etes vous sûr de supprimer ' + sondeName + '?',
+                text: "Vous ne pourrez pas revenir en arrière!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: 'ajax/suppr_sonde.php',
+                        type: 'POST',
+                        data: {
+                            id: sondeId
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // Gestion de la réponse
+                            resultId = parseInt(response.result);
+                            if (resultId > 0) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Parfait',
+                                    text: 'Groupe supprimé!',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "index.php?page=admin_sondes";
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Echec',
+                                    text: 'Erreur de requête!',
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#pageMessage').on( 'click', 'input[name=Modif_Sonde]', function(e){
+            e.preventDefault();
+            var parent = $(this).parents('.sonde');
+
+            // Récupération de l'id de la sonde
+            var sondeId = parent.data('sonde-id');
+            var sondeName = parent.data('sonde-name');
+            //alert(groupeName);
+
+            Swal.fire({
+                title: 'Modifier sonde',
+                html: `<input type="text" id="value" class="swal2-input" placeholder="${sondeName}">`,
+                confirmButtonText: 'Valider',
                 focusConfirm: false,
                 preConfirm: () => {
                     const value = Swal.getPopup().querySelector('#value').value
@@ -83,11 +151,11 @@ require('layouts/pages/admin.php');
                 if(result.value) {
                     const value = result.value.value;
                     $.ajax({
-                        url: 'ajax/modif_group.php',
+                        url: 'ajax/modif_sonde.php',
                         type: 'POST',
                         data: {
                             value: value,
-                            id: groupeId
+                            id: sondeId
                         },
                         dataType: 'json',
                         success: function (response) {
@@ -97,10 +165,10 @@ require('layouts/pages/admin.php');
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Parfait',
-                                    text: 'Nom du groupe modifié!',
+                                    text: 'Nom de la sonde modifié!',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location = "index.php?page=admin_groupes";
+                                        window.location = "index.php?page=admin_sondes";
                                     }
                                 });
 
@@ -122,8 +190,172 @@ require('layouts/pages/admin.php');
             scrollY: 400
         } );
 
-        $('#pageMessage').on('click', 'input[name=Add_Group]', function(e){
+        $('#pageMessage').on('click', 'input[name=Add_Sonde]', function(e){
             e.preventDefault();
+
+            var liste;
+            $.ajax({
+                url: 'ajax/get_groups.php',
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                success: function (response) {
+                    // Gestion de la réponse
+                    resultId = parseInt(response.result);
+                    if (resultId > 0) {
+                        liste = response.list;
+                        //alert(list);
+                        Swal.fire({
+                            title: 'Selectionnez un groupe',
+                            input: 'select',
+                            inputOptions: {
+                                liste
+                            },
+                            inputPlaceholder: 'Groupe',
+                            showCancelButton: true,
+                            inputValidator: (value) => {
+                                return new Promise((resolve) => {
+                                    var groupe = value;
+                                    var liste;
+                                    $.ajax({
+                                        url: 'ajax/get_types.php',
+                                        type: 'POST',
+                                        data: {},
+                                        dataType: 'json',
+                                        success: function (response) {
+                                            // Gestion de la réponse
+                                            resultId = parseInt(response.result);
+                                            if (resultId > 0) {
+                                                liste = response.list;
+                                                //alert(list);
+                                                Swal.fire({
+                                                    title: 'Selectionnez une sonde',
+                                                    input: 'select',
+                                                    inputOptions: {
+                                                        liste
+                                                    },
+                                                    inputPlaceholder: 'Type de sonde',
+                                                    showCancelButton: true,
+                                                    inputValidator: (value) => {
+                                                        return new Promise((resolve) => {
+                                                            var sonde_type = value;
+                                                            Swal.fire({
+                                                                title: 'Ajouter sonde',
+                                                                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom sonde">`,
+                                                                confirmButtonText: 'Valider',
+                                                                focusConfirm: false,
+                                                                preConfirm: () => {
+                                                                    const value = Swal.getPopup().querySelector('#value').value
+                                                                    if (!value) {
+                                                                        Swal.showValidationMessage(`Please enter a value!`)
+                                                                    }
+                                                                    return { value: value}
+                                                                }
+                                                            }).then((result) => {
+                                                                if(result.value) {
+                                                                    const value = result.value.value;
+                                                                    $.ajax({
+                                                                        url: 'ajax/add_sonde.php',
+                                                                        type: 'POST',
+                                                                        data: {
+                                                                            value: value,
+                                                                            group: groupe,
+                                                                            type: sonde_type
+
+                                                                        },
+                                                                        dataType: 'json',
+                                                                        success: function (response) {
+                                                                            // Gestion de la réponse
+                                                                            resultId = parseInt(response.result);
+                                                                            if (resultId > 0) {
+                                                                                Swal.fire({
+                                                                                    icon: 'success',
+                                                                                    title: 'Parfait',
+                                                                                    text: 'Sonde ajouté!',
+                                                                                }).then((result) => {
+                                                                                    if (result.isConfirmed) {
+                                                                                        window.location = "index.php?page=admin_sondes";
+                                                                                    }
+                                                                                });
+
+                                                                            } else {
+                                                                                Swal.fire({
+                                                                                    icon: 'error',
+                                                                                    title: 'Echec',
+                                                                                    text: 'Erreur de requête!',
+                                                                                });
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+
+                                                        })
+                                                    }
+                                                });
+                                                //alert('Login');
+                                            } else {
+                                                alert("Il n'y a pas d'éléments!");
+                                            }
+                                        }
+                                    });
+                                })
+                            }
+                        });
+                        //alert('Login');
+                    } else {
+                        alert("Il n'y a pas d'éléments!");
+                    }
+                }
+            });
+
+            /*Swal.fire({
+                title: 'Ajouter sonde',
+                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom sonde">`,
+                confirmButtonText: 'Valider',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const value = Swal.getPopup().querySelector('#value').value
+                    if (!value) {
+                        Swal.showValidationMessage(`Please enter a value!`)
+                    }
+                    return { value: value}
+                }
+            }).then((result) => {
+                if(result.value) {
+                    const value = result.value.value;
+                    $.ajax({
+                        url: 'ajax/add_sonde.php',
+                        type: 'POST',
+                        data: {
+                            value: value
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // Gestion de la réponse
+                            resultId = parseInt(response.result);
+                            if (resultId > 0) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Parfait',
+                                    text: 'Sonde ajouté!',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "index.php?page=admin_sondes";
+                                    }
+                                });
+
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Echec',
+                                    text: 'Erreur de requête!',
+                                });
+                            }
+                        }
+                    });
+                }
+            });*/
             /*var liste;
             $.ajax({
                 url: 'ajax/get_groups.php',
@@ -152,18 +384,18 @@ require('layouts/pages/admin.php');
                 }
             });*/
 
-            Swal.fire({
+            /*Swal.fire({
                 title: 'Login Form',
                 html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-  <input type="password" id="password" class="swal2-input" placeholder="Password">`,
+      <input type="password" id="password" class="swal2-input" placeholder="Password">`,
                 confirmButtonText: 'Sign in',
                 focusConfirm: false,
                 backdrop: `
-    rgba(0,0,123,0.4)
-    url("img/nyan-cat.gif")
-    left top
-    no-repeat
-  `,
+        rgba(0,0,123,0.4)
+        url("img/nyan-cat.gif")
+        left top
+        no-repeat
+      `,
                 preConfirm: () => {
                     const login = Swal.getPopup().querySelector('#login').value
                     const password = Swal.getPopup().querySelector('#password').value
@@ -195,7 +427,7 @@ require('layouts/pages/admin.php');
                         }
                     });
                 }
-            });
+            });*/
 
         });
     });
