@@ -21,7 +21,21 @@
 	
 		<div id="header">
 			Gestion Maison
-            <a href="https://www.github.com/Weefle/GestHome">
-                <img src='img/github.png' />
-            </a>
+                <?php
+
+                if (isset($_SESSION['login']) && isset($_SESSION['password'])) {
+                    echo "
+<div class='header_img' data-login='true'>
+<div >Deconnexion</div>
+                <img src='img/unlock.png'/>
+                </div>";
+                }else {
+
+                    echo "
+<div class='header_img' data-login='false'>
+<div >Connexion</div>
+                <img src='img/lock.png'/>
+                </div>";
+                }
+                ?>
 		</div>

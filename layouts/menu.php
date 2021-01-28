@@ -40,6 +40,13 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
             //echo $pageAffiche . '&id=' . $groupeId;
         ?>
 
+        <?php
+
+        if (isset($_SESSION['login']) && isset($_SESSION['password'])){
+
+
+        ?>
+
 		<li class="<?php echo ( $pageAffiche == 'message' ? 'selected' : '' ); ?>">
 			<a href="index.php?page=message">
 				<span class="fa fa-envelope"></span>Message
@@ -51,6 +58,13 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
                 <span class="fa fa-cogs"></span>Administration
             </a>
         </li>
+
+        <?php
+
+        }
+
+
+        ?>
 		
 	</ul>
 	<br class="clear" />

@@ -44,7 +44,7 @@ if(!in_array($_REQUEST['login'],$result)){
     $prep->bindValue('prenom', $_REQUEST['prenom']);
     $prep->bindValue('type_utilisateur_id', $type);
     $prep->bindValue('login', $_REQUEST['login']);
-    $prep->bindValue('password', $_REQUEST['password']);
+    $prep->bindValue('password', hash('sha512', $_REQUEST['password']));
     $prep->bindValue('date_derniere_connexion', date("Y-m-d H:i:s"));
     $prep->execute();
     echo json_encode(array('result' => 1));

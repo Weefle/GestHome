@@ -17,7 +17,7 @@
 
 // Gestion du contenu de la page
 	echo '<div id="content">';
-		require ( 'layouts/pages/' . $pageAffiche . '.php' );
+	require('layouts/pages/' . $pageAffiche . '.php');
 	echo '</div>';
 
 // Appel du footer

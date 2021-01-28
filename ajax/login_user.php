@@ -15,11 +15,24 @@ if ( !isset( $_REQUEST['password'] ) ){
 }
 
 // Extraction de la sonde
-$query = 'SELECT * FROM utilisateur WHERE login = "' . $_REQUEST['login'] . '" AND password = "' . $_REQUEST['password'] . '"';
+$query = 'SELECT id FROM utilisateur WHERE login = "' . $_REQUEST['login'] . '" AND password = "' . hash('sha512', $_REQUEST['password']) . '"';
 $stmt = $pdo->query( $query );
 $result = $stmt->fetch( PDO::FETCH_ASSOC );
 //var_dump($result);
 if($result) {
+    $_SESSION['login'] = $_REQUEST['login'];
+    $_SESSION['password'] = hash('sha512', $_REQUEST['password']);
+
+    $query = '
+		UPDATE utilisateur
+		SET date_derniere_connexion = :date_derniere_connexion
+		WHERE id = :id
+	';
+    $prep = $pdo->prepare($query);
+
+    $prep->bindValue('date_derniere_connexion', date("Y-m-d H:i:s"));
+    $prep->bindValue('id', $result['id']);
+    $prep->execute();
     // Tout est Ok
     echo json_encode(array('result' => 1));
 }else{

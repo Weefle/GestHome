@@ -56,7 +56,7 @@ button:hover { background-color:#009933; }
 
 /* Header */
 #header { position:absolute; top:0; right:0; height:40px; left:0; background-color:#ed4e2a; padding-left:20px; font-weight:bold; color:#FFFFFF; font-size:25px; line-height:40px; }
-#header img {float:right; max-height: 100%; margin-right: 20px; }
+#header .header_img { float: right; }
 
 /* Menu */
 #menu { position:absolute; top:40px; bottom:40px; left:0; width:180px; border-right:1px solid #ed4e2a; }
@@ -74,6 +74,7 @@ button:hover { background-color:#009933; }
 
 /* Footer */
 #footer { position:absolute; bottom:0; right:0; height:40px; left:0; background-color:#ed4e2a; line-height:40px; text-align:center; }
+#footer .footer_img {float:right; max-height:100%; margin-right: 20px; }
 
 /* Page Message */
 #pageMessage { }
