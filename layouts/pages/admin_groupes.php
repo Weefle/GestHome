@@ -190,7 +190,7 @@ require('layouts/pages/admin.php');
             preConfirm: () => {
                 const value = Swal.getPopup().querySelector('#value').value
                 const icon = Swal.getPopup().querySelector('#icon').value
-                if (!value && !icon) {
+                if (!value || !icon) {
                     Swal.showValidationMessage(`Please enter a value!`)
                 }
                 return { value: value, icon: icon}

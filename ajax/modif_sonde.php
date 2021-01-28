@@ -19,7 +19,7 @@ $query = 'SELECT label FROM sonde WHERE id = "' . $_REQUEST['id'] . '"';
 $stmt = $pdo->query( $query );
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //var_dump($result['label']);
-if($result) {
+if(in_array($_REQUEST['value'],$result)) {
     $query = '
 		UPDATE sonde
 		SET label = :valeur

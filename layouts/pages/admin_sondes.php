@@ -6,6 +6,8 @@ $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
 
+//var_dump(hash('sha512', 'test'));
+
 require('layouts/pages/admin.php');
 ?>
 <div id="pageMessage">

@@ -4,7 +4,12 @@
 require '../parametres.php';
 
 // Vérification du captcha
-if ( !isset( $_REQUEST['value']) ){
+if ( !isset( $_REQUEST['login']) ){
+    echo json_encode( array( 'result' => -10 ) );
+    exit(0);
+}
+
+if ( !isset( $_REQUEST['password']) ){
     echo json_encode( array( 'result' => -10 ) );
     exit(0);
 }
@@ -15,20 +20,21 @@ if ( !isset( $_REQUEST['id']) ){
 }
 
 // Extraction de la sonde
-$query = 'SELECT label FROM groupe WHERE id = "' . $_REQUEST['id'] . '"';
+$query = 'SELECT login FROM utilisateur WHERE id = "' . $_REQUEST['id'] . '"';
 $stmt = $pdo->query( $query );
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 //var_dump($result['label']);
-if(in_array($_REQUEST['value'],$result)) {
+if(in_array($_REQUEST['login'],$result)) {
     $query = '
-		UPDATE groupe
-		SET label = :valeur
+		UPDATE utilisateur
+		SET login = :login, password = :password
 		WHERE id = :id
 	';
     $prep = $pdo->prepare($query);
 
-    $prep->bindValue('valeur', $_REQUEST['value']);
+    $prep->bindValue('login', $_REQUEST['login']);
     $prep->bindValue('id', $_REQUEST['id']);
+    $prep->bindValue('password', hash('sha512', $_REQUEST['password']));
     $prep->execute();
     // Tout est Ok
     echo json_encode(array('result' => 1));
