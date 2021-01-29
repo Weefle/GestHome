@@ -22,7 +22,10 @@ $result = $stmt->fetch( PDO::FETCH_ASSOC );
 if($result) {
     $_SESSION['login'] = $_REQUEST['login'];
     $_SESSION['password'] = hash('sha512', $_REQUEST['password']);
-
+    $query = 'SELECT type_utilisateur_id FROM utilisateur WHERE login = "' . $_REQUEST['login'] . '" AND password = "' . hash('sha512', $_REQUEST['password']) . '"';
+    $stmt = $pdo->query( $query );
+    $user_type = $stmt->fetch( PDO::FETCH_ASSOC );
+    $_SESSION['type'] = $user_type['type_utilisateur_id'];
     $query = '
 		UPDATE utilisateur
 		SET date_derniere_connexion = :date_derniere_connexion

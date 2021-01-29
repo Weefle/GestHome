@@ -7,6 +7,11 @@ $prep->execute();
 $arrAll = $prep->fetchAll();
 
 require('layouts/pages/admin.php');
+
+if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
+
+    if ($_SESSION['type'] == 1) {
+
 ?>
 <div id="pageMessage">
 
@@ -14,7 +19,7 @@ require('layouts/pages/admin.php');
         Administration des utilisateurs
     </div>
 
-    <div class="contentContent">
+    <div class="contentContent" >
         <input name="Add_User" value="Ajouter un utilisateur" type="button">
         <div class="dataTableContainer">
             <table id="messageTable" class="stripe row-border dataTable">
@@ -46,6 +51,7 @@ require('layouts/pages/admin.php');
                     $prep->execute();
                     $arrRes = $prep->fetch();
                     $type_utilisateur = $arrRes[0];
+
                     echo "<tr class='utilisateur' data-utilisateur-id=$utilisateur_id data-utilisateur-login='$utilisateur_login' data-utilisateur-password='$utilisateur_password' >
                         <td >$utilisateur_name</td >
 						<td >$utilisateur_surname</td >
@@ -77,48 +83,48 @@ require('layouts/pages/admin.php');
             var utilisateurId = parent.data('utilisateur-id');
             var utilisateurLogin = parent.data('utilisateur-login');
 
-            Swal.fire({
-                title: 'Etes vous sûr de supprimer ' + utilisateurLogin + '?',
-                text: "Vous ne pourrez pas revenir en arrière!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, supprimer!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: 'ajax/suppr_user.php',
-                        type: 'POST',
-                        data: {
-                            id: utilisateurId
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Gestion de la réponse
-                            resultId = parseInt(response.result);
-                            if (resultId > 0) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Parfait',
-                                    text: 'Utilisateur supprimé!',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location = "index.php?page=admin_utilisateurs";
-                                    }
-                                });
+                Swal.fire({
+                    title: 'Etes vous sûr de supprimer ' + utilisateurLogin + '?',
+                    text: "Vous ne pourrez pas revenir en arrière!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, supprimer!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: 'ajax/suppr_user.php',
+                            type: 'POST',
+                            data: {
+                                id: utilisateurId
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                // Gestion de la réponse
+                                resultId = parseInt(response.result);
+                                if (resultId > 0) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Parfait',
+                                        text: 'Utilisateur supprimé!',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location = "index.php?page=admin_utilisateurs";
+                                        }
+                                    });
 
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Echec',
-                                    text: 'Erreur de requête!',
-                                });
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Echec',
+                                        text: 'Erreur de requête!',
+                                    });
+                                }
                             }
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
         });
 
         $('#pageMessage').on( 'click', 'input[name=Modif_User]', function(e){
@@ -129,7 +135,6 @@ require('layouts/pages/admin.php');
             var utilisateurId = parent.data('utilisateur-id');
             var utilisateurLogin = parent.data('utilisateur-login');
             var utilisateurPassword = parent.data('utilisateur-password');
-            //alert(groupeName);
 
             Swal.fire({
                 title: 'Modifier utilisateur',
@@ -193,222 +198,108 @@ require('layouts/pages/admin.php');
         $('#pageMessage').on('click', 'input[name=Add_User]', function(e){
             e.preventDefault();
 
-            var liste;
-            $.ajax({
-                url: 'ajax/get_user_types.php',
-                type: 'POST',
-                data: {},
-                dataType: 'json',
-                success: function (response) {
-                    // Gestion de la réponse
-                    resultId = parseInt(response.result);
-                    if (resultId > 0) {
-                        liste = response.list;
-                        //alert(list);
-                        Swal.fire({
-                            title: 'Selectionnez un type d\'utilisateur',
-                            input: 'select',
-                            inputOptions: {
-                                liste
-                            },
-                            inputPlaceholder: 'Type d\'utilisateur',
-                            showCancelButton: true,
-                            inputValidator: (value) => {
-                                return new Promise((resolve) => {
+                var liste;
+                $.ajax({
+                    url: 'ajax/get_user_types.php',
+                    type: 'POST',
+                    data: {},
+                    dataType: 'json',
+                    success: function (response) {
+                        // Gestion de la réponse
+                        resultId = parseInt(response.result);
+                        if (resultId > 0) {
+                            liste = response.list;
+                            //alert(list);
+                            Swal.fire({
+                                title: 'Selectionnez un type d\'utilisateur',
+                                input: 'select',
+                                inputOptions: {
+                                    liste
+                                },
+                                inputPlaceholder: 'Type d\'utilisateur',
+                                showCancelButton: true,
+                                inputValidator: (value) => {
+                                    return new Promise((resolve) => {
 
-                                    var type = value;
+                                        var type = value;
 
-                                    Swal.fire({
-                                        title: 'Ajouter utilisateur',
-                                        html: `<input type="text" id="login" class="swal2-input" placeholder="Login">
+                                        Swal.fire({
+                                            title: 'Ajouter utilisateur',
+                                            html: `<input type="text" id="login" class="swal2-input" placeholder="Login">
                                                 <input type="password" id="password" class="swal2-input" placeholder="Password">
                                                 <input type="text" id="nom" class="swal2-input" placeholder="Name">
                                                 <input type="text" id="prenom" class="swal2-input" placeholder="LastName">`,
-                                        confirmButtonText: 'Valider',
-                                        focusConfirm: false,
-                                        preConfirm: () => {
-                                            const login = Swal.getPopup().querySelector('#login').value
-                                            const password = Swal.getPopup().querySelector('#password').value
-                                            const nom = Swal.getPopup().querySelector('#nom').value
-                                            const prenom = Swal.getPopup().querySelector('#prenom').value
+                                            confirmButtonText: 'Valider',
+                                            focusConfirm: false,
+                                            preConfirm: () => {
+                                                const login = Swal.getPopup().querySelector('#login').value
+                                                const password = Swal.getPopup().querySelector('#password').value
+                                                const nom = Swal.getPopup().querySelector('#nom').value
+                                                const prenom = Swal.getPopup().querySelector('#prenom').value
 
-                                            if (!login || !password || !nom || !prenom) {
-                                                Swal.showValidationMessage(`Please enter a value!`)
-                                            }
-                                            return { login: login, password: password, nom: nom, prenom: prenom}
-                                        }
-                                    }).then((result) => {
-                                        if(result.value) {
-                                            const login = result.value.login;
-                                            const password = result.value.password;
-                                            const nom = result.value.nom;
-                                            const prenom = result.value.prenom;
-                                            $.ajax({
-                                                url: 'ajax/add_user.php',
-                                                type: 'POST',
-                                                data: {
-                                                    login: login,
-                                                    password: password,
-                                                    nom: nom,
-                                                    prenom: prenom,
-                                                    type: type
-                                                },
-                                                dataType: 'json',
-                                                success: function (response) {
-                                                    // Gestion de la réponse
-                                                    resultId = parseInt(response.result);
-                                                    if (resultId > 0) {
-                                                        Swal.fire({
-                                                            icon: 'success',
-                                                            title: 'Parfait',
-                                                            text: 'Utilisateur ajouté!',
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                window.location = "index.php?page=admin_utilisateurs";
-                                                            }
-                                                        });
-
-                                                    } else {
-                                                        Swal.fire({
-                                                            icon: 'error',
-                                                            title: 'Echec',
-                                                            text: 'Erreur de requête!',
-                                                        });
-                                                    }
+                                                if (!login || !password || !nom || !prenom) {
+                                                    Swal.showValidationMessage(`Please enter a value!`)
                                                 }
-                                            });
-                                        }
-                                    });
-                                })
-                            }
-                        });
-                        //alert('Login');
-                    } else {
-                        alert("Il n'y a pas d'éléments!");
-                    }
-                }
-            });
+                                                return {login: login, password: password, nom: nom, prenom: prenom}
+                                            }
+                                        }).then((result) => {
+                                            if (result.value) {
+                                                const login = result.value.login;
+                                                const password = result.value.password;
+                                                const nom = result.value.nom;
+                                                const prenom = result.value.prenom;
+                                                $.ajax({
+                                                    url: 'ajax/add_user.php',
+                                                    type: 'POST',
+                                                    data: {
+                                                        login: login,
+                                                        password: password,
+                                                        nom: nom,
+                                                        prenom: prenom,
+                                                        type: type
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function (response) {
+                                                        // Gestion de la réponse
+                                                        resultId = parseInt(response.result);
+                                                        if (resultId > 0) {
+                                                            Swal.fire({
+                                                                icon: 'success',
+                                                                title: 'Parfait',
+                                                                text: 'Utilisateur ajouté!',
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    window.location = "index.php?page=admin_utilisateurs";
+                                                                }
+                                                            });
 
-            /*Swal.fire({
-                title: 'Ajouter sonde',
-                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom sonde">`,
-                confirmButtonText: 'Valider',
-                focusConfirm: false,
-                preConfirm: () => {
-                    const value = Swal.getPopup().querySelector('#value').value
-                    if (!value) {
-                        Swal.showValidationMessage(`Please enter a value!`)
-                    }
-                    return { value: value}
-                }
-            }).then((result) => {
-                if(result.value) {
-                    const value = result.value.value;
-                    $.ajax({
-                        url: 'ajax/add_sonde.php',
-                        type: 'POST',
-                        data: {
-                            value: value
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Gestion de la réponse
-                            resultId = parseInt(response.result);
-                            if (resultId > 0) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Parfait',
-                                    text: 'Sonde ajouté!',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location = "index.php?page=admin_sondes";
-                                    }
-                                });
-
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Echec',
-                                    text: 'Erreur de requête!',
-                                });
-                            }
+                                                        } else {
+                                                            Swal.fire({
+                                                                icon: 'error',
+                                                                title: 'Echec',
+                                                                text: 'Erreur de requête!',
+                                                            });
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    })
+                                }
+                            });
+                            //alert('Login');
+                        } else {
+                            alert("Il n'y a pas d'éléments!");
                         }
-                    });
-                }
-            });*/
-            /*var liste;
-            $.ajax({
-                url: 'ajax/get_groups.php',
-                type: 'POST',
-                data: {},
-                dataType: 'json',
-                success: function (response) {
-                    // Gestion de la réponse
-                    resultId = parseInt(response.result);
-                    if (resultId > 0) {
-                        liste = response.list;
-                        //alert(list);
-                        Swal.fire({
-                            title: 'Select a group',
-                            input: 'select',
-                            inputOptions: {
-                                liste
-                            },
-                            inputPlaceholder: 'Groupe',
-                            showCancelButton: true
-                        });
-                        //alert('Login');
-                    } else {
-                        alert("Il n'y a pas d'éléments!");
                     }
-                }
-            });*/
+                });
 
-            /*Swal.fire({
-                title: 'Login Form',
-                html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-      <input type="password" id="password" class="swal2-input" placeholder="Password">`,
-                confirmButtonText: 'Sign in',
-                focusConfirm: false,
-                backdrop: `
-        rgba(0,0,123,0.4)
-        url("img/nyan-cat.gif")
-        left top
-        no-repeat
-      `,
-                preConfirm: () => {
-                    const login = Swal.getPopup().querySelector('#login').value
-                    const password = Swal.getPopup().querySelector('#password').value
-                    if (!login || !password) {
-                        Swal.showValidationMessage(`Please enter login and password`)
-                    }
-                    return { login: login, password: password }
-                }
-            }).then((result) => {
-                if(result.value) {
-                    const login = result.value.login;
-                    const password = result.value.password;
-                    $.ajax({
-                        url: 'ajax/login_user.php',
-                        type: 'POST',
-                        data: {
-                            login: login,
-                            password: password
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Gestion de la réponse
-                            resultId = parseInt(response.result);
-                            if (resultId > 0) {
-                                alert('Login');
-                            } else {
-                                alert('Login incorrect');
-                            }
-                        }
-                    });
-                }
-            });*/
+
 
         });
     });
 </script>
+
+<?php
+    }}
+        ?>

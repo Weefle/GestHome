@@ -9,6 +9,9 @@ $arrAll = $prep->fetchAll();
 //var_dump(hash('sha512', 'test'));
 
 require('layouts/pages/admin.php');
+if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
+
+if ($_SESSION['type'] == 1) {
 ?>
 <div id="pageMessage">
 
@@ -311,126 +314,11 @@ require('layouts/pages/admin.php');
                 }
             });
 
-            /*Swal.fire({
-                title: 'Ajouter sonde',
-                html: `<input type="text" id="value" class="swal2-input" placeholder="Nom sonde">`,
-                confirmButtonText: 'Valider',
-                focusConfirm: false,
-                preConfirm: () => {
-                    const value = Swal.getPopup().querySelector('#value').value
-                    if (!value) {
-                        Swal.showValidationMessage(`Please enter a value!`)
-                    }
-                    return { value: value}
-                }
-            }).then((result) => {
-                if(result.value) {
-                    const value = result.value.value;
-                    $.ajax({
-                        url: 'ajax/add_sonde.php',
-                        type: 'POST',
-                        data: {
-                            value: value
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Gestion de la réponse
-                            resultId = parseInt(response.result);
-                            if (resultId > 0) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Parfait',
-                                    text: 'Sonde ajouté!',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location = "index.php?page=admin_sondes";
-                                    }
-                                });
-
-                            } else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Echec',
-                                    text: 'Erreur de requête!',
-                                });
-                            }
-                        }
-                    });
-                }
-            });*/
-            /*var liste;
-            $.ajax({
-                url: 'ajax/get_groups.php',
-                type: 'POST',
-                data: {},
-                dataType: 'json',
-                success: function (response) {
-                    // Gestion de la réponse
-                    resultId = parseInt(response.result);
-                    if (resultId > 0) {
-                        liste = response.list;
-                        //alert(list);
-                        Swal.fire({
-                            title: 'Select a group',
-                            input: 'select',
-                            inputOptions: {
-                                liste
-                            },
-                            inputPlaceholder: 'Groupe',
-                            showCancelButton: true
-                        });
-                        //alert('Login');
-                    } else {
-                        alert("Il n'y a pas d'éléments!");
-                    }
-                }
-            });*/
-
-            /*Swal.fire({
-                title: 'Login Form',
-                html: `<input type="text" id="login" class="swal2-input" placeholder="Username">
-      <input type="password" id="password" class="swal2-input" placeholder="Password">`,
-                confirmButtonText: 'Sign in',
-                focusConfirm: false,
-                backdrop: `
-        rgba(0,0,123,0.4)
-        url("img/nyan-cat.gif")
-        left top
-        no-repeat
-      `,
-                preConfirm: () => {
-                    const login = Swal.getPopup().querySelector('#login').value
-                    const password = Swal.getPopup().querySelector('#password').value
-                    if (!login || !password) {
-                        Swal.showValidationMessage(`Please enter login and password`)
-                    }
-                    return { login: login, password: password }
-                }
-            }).then((result) => {
-                if(result.value) {
-                    const login = result.value.login;
-                    const password = result.value.password;
-                    $.ajax({
-                        url: 'ajax/login_user.php',
-                        type: 'POST',
-                        data: {
-                            login: login,
-                            password: password
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // Gestion de la réponse
-                            resultId = parseInt(response.result);
-                            if (resultId > 0) {
-                                alert('Login');
-                            } else {
-                                alert('Login incorrect');
-                            }
-                        }
-                    });
-                }
-            });*/
 
         });
     });
 </script>
+
+<?php
+}}
+?>

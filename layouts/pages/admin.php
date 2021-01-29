@@ -1,3 +1,13 @@
+<?php if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
+
+        if ($_SESSION['type'] == 1) {
+
+
+
+
+    ?>
+
+
 <div class="navBar">
     <ul class="adminNav">
         <li class="<?php echo ( $pageAffiche == 'admin_groupes' ? 'adminNavIN' : '' ); ?>"><a href="index.php?page=admin_groupes">Administration des groupes</a></li>
@@ -5,3 +15,7 @@
         <li class="<?php echo ( $pageAffiche == 'admin_utilisateurs' ? 'adminNavIN' : '' ); ?>"><a href="index.php?page=admin_utilisateurs">Administration des utilisateurs</a></li>
     </ul>
 </div>
+    <?php
+        }
+    }
+    ?>

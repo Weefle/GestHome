@@ -6,6 +6,10 @@ $prep->execute();
 // Récupération des résultats dans un tableau associatif
 $arrAll = $prep->fetchAll();
 
+    if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
+
+        if ($_SESSION['type'] == 1) {
+
 ?>
 <div id="pageMessage">
 
@@ -74,3 +78,7 @@ $arrAll = $prep->fetchAll();
         } );
 	});
 </script>
+
+<?php
+}}
+    ?>

@@ -23,7 +23,7 @@
 			Gestion Maison
                 <?php
 
-                if (isset($_SESSION['login']) && isset($_SESSION['password'])) {
+                if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
                     echo "
 <div class='header_img' data-login='true'>
 <div >Deconnexion</div>

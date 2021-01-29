@@ -42,8 +42,9 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
 
         <?php
 
-        if (isset($_SESSION['login']) && isset($_SESSION['password'])){
+        if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])){
 
+            if($_SESSION['type']==1){
 
         ?>
 
@@ -61,6 +62,7 @@ if ( isset( $_GET['id'] ) && $_GET['id'] > 0 ){
 
         <?php
 
+            }
         }
 
 
