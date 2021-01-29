@@ -24,16 +24,19 @@
                 <?php
 
                 if (isset($_SESSION['login']) && isset($_SESSION['password']) && isset($_SESSION['type'])) {
-                    echo "
+                    $query = 'SELECT * FROM utilisateur WHERE login = "' . $_SESSION['login'] . '" AND password = "' . $_SESSION['password'] . '"';
+                    $stmt = $pdo->query( $query );
+                    $result = $stmt->fetchAll();
+                    $user = $result[0];
+                    //var_dump($user['nom']);
+                    echo " - ${user['nom']} ${user['prenom']}
 <div class='header_img' data-login='true'>
-<div >Deconnexion</div>
                 <img src='img/unlock.png'/>
                 </div>";
                 }else {
 
                     echo "
 <div class='header_img' data-login='false'>
-<div >Connexion</div>
                 <img src='img/lock.png'/>
                 </div>";
                 }
