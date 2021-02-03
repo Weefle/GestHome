@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added message list support">
-      <change afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ajax/.htaccess" afterDir="false" />
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Added .htaccess">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/layouts/pages/accueil.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/accueil.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +69,8 @@
       <workItem from="1611090843563" duration="1487000" />
       <workItem from="1611162990750" duration="6425000" />
       <workItem from="1611225422340" duration="6896000" />
-      <workItem from="1612260577912" duration="1617000" />
+      <workItem from="1612260577912" duration="2413000" />
+      <workItem from="1612348688416" duration="3331000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -128,7 +128,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611180653779</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added .htaccess">
+      <created>1612262403438</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612262403438</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +162,8 @@
     <MESSAGE value="Modified css button" />
     <MESSAGE value="Added admin page" />
     <MESSAGE value="Added admin page and datatable for message list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added admin page and datatable for message list" />
+    <MESSAGE value="Added .htaccess" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added .htaccess" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
