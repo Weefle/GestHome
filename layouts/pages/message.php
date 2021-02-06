@@ -38,28 +38,32 @@ $arrAll = $prep->fetchAll();
                      $sonde_id = $arr[1];
                      $prep = $pdo->prepare( 'SELECT * FROM sonde WHERE id ="' . $sonde_id . '"' );
                      $prep->execute();
-                     $arrRes = $prep->fetchAll();
+                     $arrRes = $prep->fetch( PDO::FETCH_ASSOC );
                      //var_dump($arrRes);
-                     $arr2 = $arrRes[0];
-                     $label = $arr2[2];
-                     $groupe_id = $arr2[4];
-                     $message = $arr[2];
-                     $date = $arr[4];
-                     $prep = $pdo->prepare( 'SELECT * FROM groupe WHERE id ="' . $groupe_id . '"' );
-                     $prep->execute();
-                     $arrRes2 = $prep->fetchAll();
-                     //var_dump($arrRes);
-                     $arr3 = $arrRes2[0];
-                     $groupe = $arr3[1];
-                     $icon = $arr3[3];
-                     echo "<tr >
+                     //if(count($arrRes)>0) {
+                         //$arr2 = $arrRes[0];
+                         $label = $arrRes['label'];
+                         $groupe_id = $arrRes['groupe_id'];
+                         $message = $arr[2];
+                         $date = $arr[4];
+                         $prep = $pdo->prepare('SELECT * FROM groupe WHERE id ="' . $groupe_id . '"');
+                         $prep->execute();
+                         $arrRes2 = $prep->fetch( PDO::FETCH_ASSOC );
+                         //var_dump($arrRes);
+                         //if (count($arrRes2) > 0) {
+                             //$arr3 = $arrRes2[0];
+                             $groupe = $arrRes2['label'];
+                             $icon = $arrRes2['icone'];
+                             echo "<tr >
 						<td class='textCenter fontSize20 fa $icon' ></td >
 						<td > $label</td >
 						<td > $groupe</td >
 						<td > $message</td >
 						<td > $date</td >
 					</tr >";
-					}
+                         }
+                   //  }
+					//}
 
                 ?>
 				</tbody>
