@@ -106,7 +106,7 @@ $grp_name = $arrAll2[0];
         }
         echo "<div class='contentContent'>
 		<div class='sonde typeSonde' data-sonde-id=$id data-type-sonde-id=$type_sonde_id>
-			<div class='titre'>$name ($value)</div>
+			<div class='titre'>$name</div>
 			<div class='content'>
 				<div class='imageSeule'>
 					<img src=$image>

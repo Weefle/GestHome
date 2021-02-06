@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Website finally finished!">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/layouts/pages/message.php" beforeDir="false" afterPath="$PROJECT_DIR$/layouts/pages/message.php" afterDir="false" />
-    </list>
+    <list default="true" id="b4e93047-bdcb-423f-b9d2-71e0ced1f8c4" name="Default Changelist" comment="Fixed problem with message.php" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,7 +90,7 @@
       <workItem from="1611913174034" duration="3155000" />
       <workItem from="1611916609000" duration="4567000" />
       <workItem from="1612531778124" duration="2991000" />
-      <workItem from="1612606552573" duration="1495000" />
+      <workItem from="1612606552573" duration="1775000" />
     </task>
     <task id="LOCAL-00001" summary="Added icons">
       <created>1610987998893</created>
@@ -242,7 +239,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611923979736</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed problem with message.php">
+      <created>1612608355211</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1612608355211</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +287,8 @@
     <MESSAGE value="Session, login and logout support" />
     <MESSAGE value="Website finished!&#10;Just need some more css support" />
     <MESSAGE value="Website finally finished!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Website finally finished!" />
+    <MESSAGE value="Fixed problem with message.php" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed problem with message.php" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
